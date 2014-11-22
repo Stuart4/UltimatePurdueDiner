@@ -6,6 +6,7 @@ import android.app.ActionBar;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Context;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -16,8 +17,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 
+import android.widget.Toast;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
@@ -30,6 +33,7 @@ import java.util.Calendar;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParserFactory;
 
 
 public class MainActivity extends Activity
@@ -47,6 +51,8 @@ public class MainActivity extends Activity
 
     private String dateString;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,6 +68,7 @@ public class MainActivity extends Activity
                 (DrawerLayout) findViewById(R.id.drawer_layout));
         SimpleDateFormat format = new SimpleDateFormat("MM-dd-yyyy");
         dateString = format.format(Calendar.getInstance().getTime());
+		getFoodInformation();
     }
 
     @Override
@@ -172,17 +179,13 @@ public class MainActivity extends Activity
     public void getFoodInformation() {
         try {
             URL hfs = new URL(String.format("http://api.hfs.purdue.edu/menus/v1/locations/%s/%s", mTitle, dateString));
-            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-            DocumentBuilder db = dbf.newDocumentBuilder();
-            Document doc = db.parse(hfs.openStream());
-            //TODO use sax
-        } catch (MalformedURLException e) {
+			MealGetter t = new MealGetter();
+			t.execute(hfs);
+			t.get();
+			Toast.makeText(this, "success", Toast.LENGTH_LONG);
+		} catch (MalformedURLException e) {
             e.printStackTrace();
-        } catch (ParserConfigurationException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (SAXException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

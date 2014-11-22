@@ -22,6 +22,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.net.URL;
+
 /**
  * Fragment used for managing interactions for and presentation of a navigation drawer.
  * See the <a href="https://developer.android.com/design/patterns/navigation-drawer.html#Interaction">
@@ -250,7 +252,7 @@ public class NavigationDrawerFragment extends Fragment {
         }
 
         if (item.getItemId() == R.id.dateAction) {
-            Toast.makeText(getActivity(), "Example action.", Toast.LENGTH_SHORT).show();
+			getFoodInformation();
             return true;
         }
 
@@ -281,4 +283,15 @@ public class NavigationDrawerFragment extends Fragment {
          */
         void onNavigationDrawerItemSelected(int position);
     }
+
+	public void getFoodInformation() {
+		try {
+			URL hfs = new URL("http://api.hfs.purdue.edu/menus/v1/locations/Windsor/11-21-2014");
+			MealGetter t = new MealGetter();
+			t.execute(hfs);
+			System.out.println(t.get()[0]);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }
