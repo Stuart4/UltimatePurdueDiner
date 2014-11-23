@@ -252,7 +252,6 @@ public class NavigationDrawerFragment extends Fragment {
         }
 
         if (item.getItemId() == R.id.dateAction) {
-			getFoodInformation();
             return true;
         }
 
@@ -284,14 +283,4 @@ public class NavigationDrawerFragment extends Fragment {
         void onNavigationDrawerItemSelected(int position);
     }
 
-	public void getFoodInformation() {
-		try {
-			URL hfs = new URL("http://api.hfs.purdue.edu/menus/v1/locations/Windsor/11-21-2014");
-			MealGetter t = new MealGetter();
-			t.execute(hfs);
-			System.out.println(t.get()[0]);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
 }
