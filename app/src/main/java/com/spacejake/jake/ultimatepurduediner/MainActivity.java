@@ -47,19 +47,20 @@ public class MainActivity extends Activity
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
+		dateString = format.format(Calendar.getInstance().getTime());
+
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
+		mTitle = getTitle();
 		mNavigationDrawerFragment = (NavigationDrawerFragment)
 				getFragmentManager().findFragmentById(R.id.navigation_drawer);
-		mTitle = getTitle();
 
 		// Set up the drawer.
 		mNavigationDrawerFragment.setUp(
 				R.id.navigation_drawer,
 				(DrawerLayout) findViewById(R.id.drawer_layout));
-		SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
-		dateString = format.format(Calendar.getInstance().getTime());
 		scrollView = (ScrollView) findViewById(R.id.scrollView);
 		spinner = (Spinner) findViewById(R.id.spinner);
 	}
@@ -78,18 +79,23 @@ public class MainActivity extends Activity
 		switch (number) {
 			case 1:
 				mTitle = getString(R.string.Earhart);
+				courtShort = "ERHT";
 				break;
 			case 2:
 				mTitle = getString(R.string.Ford);
+				courtShort = "FORD";
 				break;
 			case 3:
 				mTitle = getString(R.string.Hillenbrand);
+				courtShort = "HILL";
 				break;
 			case 4:
 				mTitle = getString(R.string.Wiley);
+				courtShort = "WILY";
 				break;
 			case 5:
 				mTitle = getString(R.string.Windsor);
+				courtShort = "WIND";
 				break;
 		}
 	}
@@ -172,7 +178,12 @@ public class MainActivity extends Activity
 
 	public void populateMenu() {
 		try {
-			URL hfs = new URL("http://www.housing.purdue.edu/Menus/ERHT");
+			URL hfs = null;
+			if (courtShort != null) {
+				hfs = new URL(String.format("http://www.housing.purdue.edu/Menus/%s/", courtShort, dateString));
+			} else {
+				hfs = new URL("http://www.housing.purdue.edu/Menus/ERHT");
+			}
 			MealGetter t = new MealGetter(this);
 			t.execute(hfs);
 		} catch (MalformedURLException e) {
@@ -190,10 +201,5 @@ public class MainActivity extends Activity
 		adapter.notifyDataSetChanged();
 	}
 
-	public void updateCourtShort() {
-		switch (mTitle) {
-
-		}
-	}
 
 }
