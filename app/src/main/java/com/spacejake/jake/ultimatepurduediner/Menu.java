@@ -1,4 +1,6 @@
 package com.spacejake.jake.ultimatepurduediner;
+import org.jsoup.helper.StringUtil;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 
@@ -46,6 +48,10 @@ class Meal {
 		return name;
 	}
 
+	public String toString() {
+		return name;
+	}
+
 	public boolean getIsServing() {
 		return isServing;
 	}
@@ -80,6 +86,6 @@ class MenuItem {
 
 	@Override
 	public String toString() {
-		return getName();
+		return name.replace("[A-Z][a-z]", "$1 $2");
 	}
 }

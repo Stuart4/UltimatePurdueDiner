@@ -8,14 +8,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.TabHost;
-import android.widget.Toast;
+import android.widget.*;
 
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 
@@ -31,10 +29,18 @@ public class MainActivity extends Activity
 	 * Used to store the last screen title. For use in {@link #restoreActionBar()}.
 	 */
 	private CharSequence mTitle;
+	private String courtShort;
 
 	private String dateString;
 
-	private com.spacejake.jake.ultimatepurduediner.Menu foodMenu;
+	private com.spacejake.jake.ultimatepurduediner.Menu foodMenu = new com.spacejake.jake.ultimatepurduediner.Menu();
+
+	private Spinner spinner;
+	private ScrollView scrollView;
+	private ArrayAdapter foodAdapter;
+
+	private boolean spinnerSpun;
+
 
 
 
@@ -52,8 +58,10 @@ public class MainActivity extends Activity
 		mNavigationDrawerFragment.setUp(
 				R.id.navigation_drawer,
 				(DrawerLayout) findViewById(R.id.drawer_layout));
-		SimpleDateFormat format = new SimpleDateFormat("MM-dd-yyyy");
+		SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
 		dateString = format.format(Calendar.getInstance().getTime());
+		scrollView = (ScrollView) findViewById(R.id.scrollView);
+		spinner = (Spinner) findViewById(R.id.spinner);
 	}
 
 	@Override
@@ -176,6 +184,16 @@ public class MainActivity extends Activity
 
 	public void updateMenu(com.spacejake.jake.ultimatepurduediner.Menu foodMenu) {
 		this.foodMenu = foodMenu;
+		ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item,
+				foodMenu.getMeals());
+		spinner.setAdapter(adapter);
+		adapter.notifyDataSetChanged();
+	}
+
+	public void updateCourtShort() {
+		switch (mTitle) {
+
+		}
 	}
 
 }
