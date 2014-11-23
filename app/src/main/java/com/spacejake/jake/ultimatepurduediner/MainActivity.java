@@ -83,7 +83,6 @@ public class MainActivity extends Activity
 		fragmentManager.beginTransaction()
 				.replace(R.id.container, PlaceholderFragment.newInstance(position + 1))
 				.commit();
-		populateMenu();
 	}
 
 	public void onSectionAttached(int number) {
@@ -109,6 +108,7 @@ public class MainActivity extends Activity
 				courtShort = "WIND";
 				break;
 		}
+		populateMenu();
 	}
 
 	public void restoreActionBar() {
