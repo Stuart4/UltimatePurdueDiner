@@ -38,7 +38,8 @@ public class MainActivity extends Activity
 	private Spinner spinner;
 	private ListView listView;
 
-	private boolean spinnerSpun;
+	private boolean spinnerSpun = false;
+
 
 
 
@@ -62,6 +63,17 @@ public class MainActivity extends Activity
 				(DrawerLayout) findViewById(R.id.drawer_layout));
 		listView = (ListView) findViewById(R.id.listview);
 		spinner = (Spinner) findViewById(R.id.spinner);
+		spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+			@Override
+			public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+				updateMeal();
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> adapterView) {
+
+			}
+		});
 	}
 
 	@Override
@@ -198,6 +210,13 @@ public class MainActivity extends Activity
 				foodMenu.getMeals());
 		spinner.setAdapter(adapter);
 		adapter.notifyDataSetChanged();
+		ArrayAdapter listAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1,
+				foodMenu.getMeals()[spinner.getSelectedItemPosition()].getMenuItems());
+		listView.setAdapter(listAdapter);
+		listAdapter.notifyDataSetChanged();
+	}
+
+	public void updateMeal() {
 		ArrayAdapter listAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1,
 				foodMenu.getMeals()[spinner.getSelectedItemPosition()].getMenuItems());
 		listView.setAdapter(listAdapter);
