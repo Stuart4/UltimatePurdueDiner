@@ -36,8 +36,7 @@ public class MainActivity extends Activity
 	private com.spacejake.jake.ultimatepurduediner.Menu foodMenu = new com.spacejake.jake.ultimatepurduediner.Menu();
 
 	private Spinner spinner;
-	private ScrollView scrollView;
-	private ArrayAdapter foodAdapter;
+	private ListView listView;
 
 	private boolean spinnerSpun;
 
@@ -61,7 +60,7 @@ public class MainActivity extends Activity
 		mNavigationDrawerFragment.setUp(
 				R.id.navigation_drawer,
 				(DrawerLayout) findViewById(R.id.drawer_layout));
-		scrollView = (ScrollView) findViewById(R.id.scrollView);
+		listView = (ListView) findViewById(R.id.listview);
 		spinner = (Spinner) findViewById(R.id.spinner);
 	}
 
@@ -199,6 +198,10 @@ public class MainActivity extends Activity
 				foodMenu.getMeals());
 		spinner.setAdapter(adapter);
 		adapter.notifyDataSetChanged();
+		ArrayAdapter listAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1,
+				foodMenu.getMeals()[spinner.getSelectedItemPosition()].getMenuItems());
+		listView.setAdapter(listAdapter);
+		listAdapter.notifyDataSetChanged();
 	}
 
 
