@@ -1,9 +1,9 @@
 package com.spacejake.jake.ultimatepurduediner;
 
 
-import android.app.Activity;
-import android.app.ActionBar;
-import android.app.Fragment;
+import android.app.*;
+import android.content.Context;
+import android.content.Intent;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -17,12 +17,15 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.Toast;
+import android.widget.*;
 
 import java.net.URL;
+import java.util.Calendar;
+import java.util.Date;
+
+import android.widget.DatePicker;
+import com.doomonafireball.betterpickers.datepicker.*;
+import android.app.FragmentManager;
 
 /**
  * Fragment used for managing interactions for and presentation of a navigation drawer.
@@ -59,6 +62,12 @@ public class NavigationDrawerFragment extends Fragment {
     private int mCurrentSelectedPosition = 0;
     private boolean mFromSavedInstanceState;
     private boolean mUserLearnedDrawer;
+
+	final Calendar cal = Calendar.getInstance();
+	int year = cal.get(Calendar.YEAR);
+	int day = cal.get(Calendar.DAY_OF_MONTH);
+	int month = cal.get(Calendar.MONTH);
+
 
     public NavigationDrawerFragment() {
     }
@@ -252,11 +261,21 @@ public class NavigationDrawerFragment extends Fragment {
         }
 
         if (item.getItemId() == R.id.dateAction) {
+			showDatePicker();
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
+
+	public void showDatePicker() {
+		new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
+			@Override
+			public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+				((MainActivity)getActivity()).dateChange(year, month, day);
+			}
+		}, year, month, day).show();
+	}
 
     /**
      * Per the navigation drawer design guidelines, updates the action bar to show the global app

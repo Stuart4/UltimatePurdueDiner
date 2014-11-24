@@ -1,5 +1,6 @@
 package com.spacejake.jake.ultimatepurduediner;
 
+import android.app.FragmentManager;
 import android.app.*;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
@@ -13,8 +14,10 @@ import android.widget.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
+
+import com.doomonafireball.betterpickers.datepicker.DatePickerBuilder;
 
 
 public class MainActivity extends Activity
@@ -38,7 +41,8 @@ public class MainActivity extends Activity
 	private Spinner spinner;
 	private ListView listView;
 
-	private boolean spinnerSpun = false;
+	private SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
+	private Calendar cal;
 
 
 
@@ -47,8 +51,6 @@ public class MainActivity extends Activity
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
-		dateString = format.format(Calendar.getInstance().getTime());
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
@@ -61,6 +63,10 @@ public class MainActivity extends Activity
 		mNavigationDrawerFragment.setUp(
 				R.id.navigation_drawer,
 				(DrawerLayout) findViewById(R.id.drawer_layout));
+
+		cal = Calendar.getInstance();
+		dateString = format.format(cal.getTime());
+
 		listView = (ListView) findViewById(R.id.listview);
 		spinner = (Spinner) findViewById(R.id.spinner);
 		spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -185,6 +191,12 @@ public class MainActivity extends Activity
 			((MainActivity) activity).onSectionAttached(
 					getArguments().getInt(ARG_SECTION_NUMBER));
 		}
+	}
+
+	public void dateChange(int year, int month, int day) {
+		cal.set(year, month, day);
+		dateString = format.format(cal.getTime());
+		populateMenu();
 	}
 
 	public void populateMenu() {
