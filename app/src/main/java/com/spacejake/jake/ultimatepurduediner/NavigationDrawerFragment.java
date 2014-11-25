@@ -68,6 +68,8 @@ public class NavigationDrawerFragment extends Fragment {
 	int day = cal.get(Calendar.DAY_OF_MONTH);
 	int month = cal.get(Calendar.MONTH);
 
+	private MenuItem datePicker;
+
 
     public NavigationDrawerFragment() {
     }
@@ -261,6 +263,7 @@ public class NavigationDrawerFragment extends Fragment {
         }
 
         if (item.getItemId() == R.id.dateAction) {
+			datePicker = item;
 			showDatePicker();
             return true;
         }
@@ -268,13 +271,19 @@ public class NavigationDrawerFragment extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
+
 	public void showDatePicker() {
 		new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
 			@Override
 			public void onDateSet(DatePicker datePicker, int year, int month, int day) {
 				((MainActivity)getActivity()).dateChange(year, month, day);
+				setDateDisplay(year, month, day);
 			}
 		}, year, month, day).show();
+	}
+
+	private void setDateDisplay(int year, int month, int day) {
+		datePicker.setTitle(String.format("%d/%d/%d", month, day, year));
 	}
 
     /**
