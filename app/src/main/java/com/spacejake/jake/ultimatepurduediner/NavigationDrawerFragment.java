@@ -2,8 +2,6 @@ package com.spacejake.jake.ultimatepurduediner;
 
 
 import android.app.*;
-import android.content.Context;
-import android.content.Intent;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -19,13 +17,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
 
-import java.net.URL;
+import java.text.DateFormatSymbols;
 import java.util.Calendar;
-import java.util.Date;
+import java.util.Locale;
 
 import android.widget.DatePicker;
-import com.doomonafireball.betterpickers.datepicker.*;
-import android.app.FragmentManager;
 
 /**
  * Fragment used for managing interactions for and presentation of a navigation drawer.
@@ -68,8 +64,9 @@ public class NavigationDrawerFragment extends Fragment {
 	int day = cal.get(Calendar.DAY_OF_MONTH);
 	int month = cal.get(Calendar.MONTH);
 
-	private MenuItem datePicker;
+	private MenuItem datePickerButton;
 
+	private boolean dateSet = false;
 
     public NavigationDrawerFragment() {
     }
@@ -263,7 +260,7 @@ public class NavigationDrawerFragment extends Fragment {
         }
 
         if (item.getItemId() == R.id.dateAction) {
-			datePicker = item;
+			datePickerButton = item;
 			showDatePicker();
             return true;
         }
@@ -276,14 +273,26 @@ public class NavigationDrawerFragment extends Fragment {
 		new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
 			@Override
 			public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-				((MainActivity)getActivity()).dateChange(year, month, day);
-				setDateDisplay(year, month, day);
+				if (!dateSet) {
+					Calendar cal = Calendar.getInstance();
+					((MainActivity)getActivity()).dateChange(year, month, day);
+					if (datePicker.getDayOfMonth() == cal.get(Calendar.DAY_OF_MONTH) && datePicker.getYear() == cal.get
+							(Calendar.YEAR)) {
+						datePickerButton.setTitle("Today");
+					} else {
+						DateFormatSymbols dfs = new DateFormatSymbols(new Locale("en"));
+						cal.set(year, month, day);
+						datePickerButton.setTitle(String.format("%s, %d/%d/%d", dfs.getShortWeekdays()[cal.get(Calendar
+										.DAY_OF_WEEK)],
+								month + 1, day,
+								year));
+					}
+					dateSet = true;
+				} else {
+					dateSet = false;
+				}
 			}
 		}, year, month, day).show();
-	}
-
-	private void setDateDisplay(int year, int month, int day) {
-		datePicker.setTitle(String.format("%d/%d/%d", month + 1, day, year));
 	}
 
     /**
