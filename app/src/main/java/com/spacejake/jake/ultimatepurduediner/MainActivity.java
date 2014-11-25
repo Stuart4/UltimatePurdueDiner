@@ -226,6 +226,10 @@ public class MainActivity extends Activity
 				foodMenu.getMeals()[spinner.getSelectedItemPosition()].getMenuItems());
 		listView.setAdapter(listAdapter);
 		listAdapter.notifyDataSetChanged();
+		if (foodMenu.getMenuNote() != null) {
+			new AlertDialog.Builder(this).setTitle("A Special Note Was Found!").setMessage(foodMenu.getMenuNote())
+					.show();
+		}
 	}
 
 	public void updateMeal() {
