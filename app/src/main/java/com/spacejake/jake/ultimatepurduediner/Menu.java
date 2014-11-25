@@ -1,14 +1,25 @@
 package com.spacejake.jake.ultimatepurduediner;
-import org.jsoup.helper.StringUtil;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 
-/**
- * Created by Jacob Stuart on 11/22/14.
- */
+/*This file is part of PurdueFoodGrabber.
+
+		PurdueFoodGrabber is free software: you can redistribute it and/or modify
+		it under the terms of the GNU General Public License as published by
+		the Free Software Foundation, either version 3 of the License, or
+		(at your option) any later version.
+
+		PurdueFoodGrabber is distributed in the hope that it will be useful,
+		but WITHOUT ANY WARRANTY; without even the implied warranty of
+		MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+		GNU General Public License for more details.
+
+		You should have received a copy of the GNU General Public License
+		along with PurdueFoodGrabber.  If not, see <http://www.gnu.org/licenses/>. */
+
 public class Menu {
 	private ArrayList<Meal> meals = new ArrayList<Meal>();
+	private String menuNote;
 
 	public void add(Meal meal) {
 		meals.add(meal);
@@ -17,7 +28,16 @@ public class Menu {
 	public Meal[] getMeals() {
 		return meals.toArray(new Meal[meals.size()]);
 	}
+
+	public String getMenuNote() {
+		return menuNote;
+	}
+
+	public void setMenuNote(String menuNote) {
+		this.menuNote = menuNote;
+	}
 }
+
 class Meal {
 	private String name;
 	private boolean isServing;
@@ -28,11 +48,6 @@ class Meal {
 		menuItems.add(menuItem);
 	}
 
-	public void setHours (String hours) {
-		this.hours = hours;
-		isServing = true;
-	}
-
 	public void setServing(boolean serving) {
 		isServing = serving;
 		if (!serving) {
@@ -40,16 +55,12 @@ class Meal {
 		}
 	}
 
-	public void setName(String name) {
-		this.name = name;
-	}
-
 	public String getName() {
 		return name;
 	}
 
-	public String toString() {
-		return name;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public boolean getIsServing() {
@@ -60,20 +71,26 @@ class Meal {
 		return hours;
 	}
 
+	public void setHours(String hours) {
+		this.hours = hours;
+		isServing = true;
+	}
+
 	public MenuItem[] getMenuItems() {
 		return menuItems.toArray(new MenuItem[menuItems.size()]);
 	}
+
+	public String toString() {
+		return name;
+	}
 }
+
 class MenuItem {
 	private String name;
 	private boolean isVegetarian;
 
 	public void setVegetarian(boolean vegetarian) {
 		isVegetarian = vegetarian;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	public boolean getIsVegetarian() {
@@ -84,8 +101,11 @@ class MenuItem {
 		return name;
 	}
 
-	@Override
+	public void setName(String name) {
+		this.name = name;
+	}
+
 	public String toString() {
-		return name.replace("[A-Z][a-z]", "$1 $2");
+		return name;
 	}
 }
