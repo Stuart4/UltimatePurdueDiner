@@ -268,7 +268,7 @@ public class NavigationDrawerFragment extends Fragment {
             return true;
         }
 
-        return super.onOptionsItemSelected(item);
+        return true;
     }
 
 
@@ -283,7 +283,7 @@ public class NavigationDrawerFragment extends Fragment {
 	}
 
 	private void setDateDisplay(int year, int month, int day) {
-		datePicker.setTitle(String.format("%d/%d/%d", month, day, year));
+		datePicker.setTitle(String.format("%d/%d/%d", month + 1, day, year));
 	}
 
     /**

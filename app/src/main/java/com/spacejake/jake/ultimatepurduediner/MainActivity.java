@@ -203,7 +203,7 @@ public class MainActivity extends Activity
 		try {
 			URL hfs = null;
 			if (courtShort != null) {
-				hfs = new URL(String.format("http://www.housing.purdue.edu/Menus/%s/", courtShort, dateString));
+				hfs = new URL(String.format("http://www.housing.purdue.edu/Menus/%s/%s", courtShort, dateString));
 			} else {
 				hfs = new URL("http://www.housing.purdue.edu/Menus/ERHT");
 			}
