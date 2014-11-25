@@ -222,8 +222,8 @@ public class MainActivity extends Activity
 				foodMenu.getMeals());
 		spinner.setAdapter(adapter);
 		adapter.notifyDataSetChanged();
-		ArrayAdapter listAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1,
-				foodMenu.getMeals()[spinner.getSelectedItemPosition()].getMenuItems());
+		ListAdapter listAdapter = new ListAdapter(MainActivity.this,foodMenu.getMeals()[spinner
+				.getSelectedItemPosition()].getMenuItems());
 		listView.setAdapter(listAdapter);
 		listAdapter.notifyDataSetChanged();
 		if (foodMenu.getMenuNote() != null) {
@@ -233,8 +233,8 @@ public class MainActivity extends Activity
 	}
 
 	public void updateMeal() {
-		ArrayAdapter listAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1,
-				foodMenu.getMeals()[spinner.getSelectedItemPosition()].getMenuItems());
+		ListAdapter listAdapter = new ListAdapter(MainActivity.this,foodMenu.getMeals()[spinner
+				.getSelectedItemPosition()].getMenuItems());
 		listView.setAdapter(listAdapter);
 		listAdapter.notifyDataSetChanged();
 	}
