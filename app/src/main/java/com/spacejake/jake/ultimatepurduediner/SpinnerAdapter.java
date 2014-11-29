@@ -30,7 +30,11 @@ public class SpinnerAdapter extends ArrayAdapter<Meal>{
 		TextView textView = (TextView) view.findViewById(R.id.spinnerMainTextView);
 		TextView subTextView = (TextView) view.findViewById(R.id.spinnerSubTextView);
 		textView.setText(item);
-		subTextView.setText(hours);
+		if (hours != null) {
+			subTextView.setText(hours);
+		} else {
+			subTextView.setText("Not Serving");
+		}
 
 
 		return view;
@@ -47,7 +51,11 @@ public class SpinnerAdapter extends ArrayAdapter<Meal>{
 		TextView textView = (TextView) convertView.findViewById(R.id.spinnerMainTextView);
 		TextView subTextView = (TextView) convertView.findViewById(R.id.spinnerSubTextView);
 		textView.setText(item);
-		subTextView.setText(hours);
+		if (hours != null) {
+			subTextView.setText(hours);
+		} else {
+			subTextView.setText("Not Serving");
+		}
 		return convertView;
 	}
 }
