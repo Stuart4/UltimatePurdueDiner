@@ -1,8 +1,10 @@
 package com.spacejake.jake.ultimatepurduediner;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.AsyncTask;
 import java.io.IOException;
 import java.net.URL;
@@ -28,7 +30,24 @@ public class MealGetter extends AsyncTask<URL, Void, Menu> {
 	@Override
 	protected void onPostExecute(Menu menu) {
 		this.dialog.dismiss();
-		((MainActivity) context).updateMenu(menu);
+		try {
+			((MainActivity) context).updateMenu(menu);
+		} catch (Exception e) {
+			new AlertDialog.Builder(context).setTitle("Error")
+					.setMessage("Purdue's housing and food service cannot be contacted.")
+					.setPositiveButton("Retry", new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialogInterface, int i) {
+							((MainActivity) context).populateMenu();
+						}
+					})
+					.setNegativeButton("Quit", new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialogInterface, int i) {
+							((MainActivity) context).finish();
+						}
+					}).show();
+		}
 		super.onPostExecute(menu);
 	}
 
