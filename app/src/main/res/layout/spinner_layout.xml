@@ -4,21 +4,22 @@
               android:layout_height="match_parent"
               tools:context=".MainActivity$PlaceholderFragment"
               android:orientation="vertical">
+
 	<TextView android:layout_width="match_parent" android:layout_height="wrap_content"
 	          android:textSize="25dp"
 	          android:paddingBottom="10dp"
 	          android:paddingTop="10dp"
-	          android:id="@+id/textView1"
+	          android:id="@+id/spinnerMainTextView"
 	          android:textStyle="bold"
 	          android:textColor="@android:color/holo_red_light"
 	          android:text="Error"
 	          android:textAlignment="center"
 			/>
 	<TextView android:layout_width="match_parent" android:layout_height="wrap_content"
-	          android:textSize="20dp"
+	          android:textSize="20sp"
 	          android:text="little error"
 	          android:textAlignment="center"
 	          android:textColor="@android:color/darker_gray"
-	          android:id="@+id/textView2"
+	          android:id="@+id/spinnerSubTextView"
 			/>
 </LinearLayout>

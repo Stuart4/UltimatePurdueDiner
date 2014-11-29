@@ -218,8 +218,7 @@ public class MainActivity extends Activity
 
 	public void updateMenu(com.spacejake.jake.ultimatepurduediner.Menu foodMenu) {
 		this.foodMenu = foodMenu;
-		ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item,
-				foodMenu.getMeals());
+		SpinnerAdapter adapter = new SpinnerAdapter(MainActivity.this, foodMenu.getMeals());
 		spinner.setAdapter(adapter);
 		adapter.notifyDataSetChanged();
 		if (foodMenu.getMenuNote() != null) {

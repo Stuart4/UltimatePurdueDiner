@@ -15,7 +15,7 @@ import android.widget.TextView;
 public class ListAdapter extends ArrayAdapter<MenuItem>{
 
 	public ListAdapter(Context context, MenuItem[] items) {
-		super(context, R.layout.menu_layout, items);
+		super(context, R.layout.row_layout_list, items);
 		if (getCount() == 0) {
 			new AlertDialog.Builder(context).setTitle("Not Serving").setMessage("This meal is not being served.")
 					.show();
@@ -28,7 +28,7 @@ public class ListAdapter extends ArrayAdapter<MenuItem>{
 		View view = inflater.inflate(R.layout.row_layout_list, parent, false);
 
 		String item = getItem(position).toString();
-		TextView textView = (TextView) view.findViewById(R.id.textView1);
+		TextView textView = (TextView) view.findViewById(R.id.listTextView);
 		textView.setText(item);
 
 		if (!getItem(position).getIsVegetarian()) {

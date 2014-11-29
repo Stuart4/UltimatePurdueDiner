@@ -11,10 +11,10 @@
 			android:id="@+id/leafImage"
 			android:src="@drawable/leadf"/>
 	<TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-	          android:textSize="25dp"
+	          android:textSize="25sp"
 	          android:paddingBottom="10dp"
 	          android:paddingTop="10dp"
-	          android:id="@+id/textView1"
+	          android:id="@+id/listTextView"
 	          android:text="Not Serving"
 			/>
 </LinearLayout>
