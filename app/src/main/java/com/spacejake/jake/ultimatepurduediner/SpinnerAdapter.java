@@ -14,8 +14,10 @@ import android.widget.TextView;
  * Created by jake on 11/25/14.
  */
 public class SpinnerAdapter extends ArrayAdapter<Meal>{
+	Context context;
 	public SpinnerAdapter(Context context, Meal[] objects) {
-		super(context, R.layout.spinner_layout, R.id.spinnerMainTextView, objects);
+		super(context, R.layout.spinner_layout, objects);
+		this.context = context;
 	}
 
 	@Override
@@ -32,5 +34,20 @@ public class SpinnerAdapter extends ArrayAdapter<Meal>{
 
 
 		return view;
+	}
+
+	@Override
+	public View getDropDownView(int position, View convertView, ViewGroup parent) {
+		if (convertView == null) {
+			LayoutInflater inflater = LayoutInflater.from(context);
+			convertView = inflater.inflate(R.layout.spinner_layout, parent, false);
+		}
+		String item = getItem(position).toString();
+		String hours = getItem(position).getHours();
+		TextView textView = (TextView) convertView.findViewById(R.id.spinnerMainTextView);
+		TextView subTextView = (TextView) convertView.findViewById(R.id.spinnerSubTextView);
+		textView.setText(item);
+		subTextView.setText(hours);
+		return convertView;
 	}
 }

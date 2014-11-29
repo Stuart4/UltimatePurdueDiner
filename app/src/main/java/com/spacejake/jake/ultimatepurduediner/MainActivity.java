@@ -218,9 +218,9 @@ public class MainActivity extends Activity
 
 	public void updateMenu(com.spacejake.jake.ultimatepurduediner.Menu foodMenu) {
 		this.foodMenu = foodMenu;
-		SpinnerAdapter adapter = new SpinnerAdapter(MainActivity.this, foodMenu.getMeals());
-		spinner.setAdapter(adapter);
-		adapter.notifyDataSetChanged();
+		SpinnerAdapter spinnerAdapter = new SpinnerAdapter(MainActivity.this, foodMenu.getMeals());
+		spinner.setAdapter(spinnerAdapter);
+		spinnerAdapter.notifyDataSetChanged();
 		if (foodMenu.getMenuNote() != null) {
 			new AlertDialog.Builder(this).setTitle("A Special Note Was Found!").setMessage(foodMenu.getMenuNote())
 					.show();
