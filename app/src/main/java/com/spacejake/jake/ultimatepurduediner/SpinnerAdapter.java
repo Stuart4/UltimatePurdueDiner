@@ -1,13 +1,12 @@
 
 package com.spacejake.jake.ultimatepurduediner;
 
-import android.app.AlertDialog;
+import android.graphics.Color;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 /**
@@ -22,16 +21,18 @@ public class SpinnerAdapter extends ArrayAdapter<Meal>{
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
+		Meal meal = getItem(position);
 		LayoutInflater inflater = LayoutInflater.from(getContext());
 		View view = inflater.inflate(R.layout.spinner_layout, parent, false);
 
-		String item = getItem(position).toString();
-		String hours = getItem(position).getHours();
+		String item = meal.toString();
+		String hours = meal.getHours();
 		TextView textView = (TextView) view.findViewById(R.id.spinnerMainTextView);
 		TextView subTextView = (TextView) view.findViewById(R.id.spinnerSubTextView);
 		textView.setText(item);
-		if (hours != null) {
+		if (meal.getIsServing()) {
 			subTextView.setText(hours);
+			textView.setTextColor(context.getResources().getColor(R.color.default_text_color_holo_light));
 		} else {
 			subTextView.setText("Not Serving");
 		}
@@ -42,19 +43,22 @@ public class SpinnerAdapter extends ArrayAdapter<Meal>{
 
 	@Override
 	public View getDropDownView(int position, View convertView, ViewGroup parent) {
+		Meal meal = getItem(position);
 		if (convertView == null) {
 			LayoutInflater inflater = LayoutInflater.from(context);
 			convertView = inflater.inflate(R.layout.spinner_layout, parent, false);
 		}
-		String item = getItem(position).toString();
-		String hours = getItem(position).getHours();
+		String item = meal.toString();
+		String hours = meal.getHours();
 		TextView textView = (TextView) convertView.findViewById(R.id.spinnerMainTextView);
 		TextView subTextView = (TextView) convertView.findViewById(R.id.spinnerSubTextView);
 		textView.setText(item);
-		if (hours != null) {
+		if (meal.getIsServing()) {
 			subTextView.setText(hours);
+			textView.setTextColor(context.getResources().getColor(R.color.default_text_color_holo_light));
 		} else {
 			subTextView.setText("Not Serving");
+			textView.setTextColor(Color.parseColor("#ffff4444"));
 		}
 		return convertView;
 	}
