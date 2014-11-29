@@ -40,15 +40,9 @@ public class MealGetter extends AsyncTask<URL, Void, Menu> {
 						public void onClick(DialogInterface dialogInterface, int i) {
 							((MainActivity) context).populateMenu();
 						}
-					})
-					.setNegativeButton("Quit", new DialogInterface.OnClickListener() {
-						@Override
-						public void onClick(DialogInterface dialogInterface, int i) {
-							((MainActivity) context).finish();
-						}
 					}).show();
+			super.onPostExecute(menu);
 		}
-		super.onPostExecute(menu);
 	}
 
 	@Override
