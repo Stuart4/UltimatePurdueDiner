@@ -1,6 +1,7 @@
 package com.spacejake.jake.ultimatepurduediner;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 /*This file is part of PurdueFoodGrabber.
 
@@ -20,6 +21,16 @@ import java.util.ArrayList;
 public class Menu {
 	private ArrayList<Meal> meals = new ArrayList<Meal>();
 	private String menuNote;
+	private String name;
+	private Calendar date;
+
+	public Menu() {
+		super();
+	}
+
+	public Menu(Calendar date) {
+		this.date = date;
+	}
 
 	public void add(Meal meal) {
 		meals.add(meal);
@@ -35,6 +46,14 @@ public class Menu {
 
 	public void setMenuNote(String menuNote) {
 		this.menuNote = menuNote;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getName() {
+		return name;
 	}
 }
 
