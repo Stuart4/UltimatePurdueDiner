@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 /*This file is part of PurdueFoodGrabber.
 
@@ -42,8 +43,13 @@ public class BulkFoodGrabber {
 			dateString = format.format(cal.getTime());
 			for (int court = 0; court < courts.length; court++) {
 				try {
-					grabber = new FoodGrabber(new URL(String.format("http://www.housing.purdue.edu/Menus/%s/%s",
-							courts[court], dateString)));
+					if (cal != null) {
+						grabber = new FoodGrabber(new URL(String.format("http://www.housing.purdue.edu/Menus/%s/%s",
+								courts[court], dateString)), cal);
+					} else {
+						grabber = new FoodGrabber(new URL(String.format("http://www.housing.purdue.edu/Menus/%s/%s",
+								courts[court], dateString)), Calendar.getInstance());
+					}
 					menus[i][court] = grabber.getFood();
 				} catch (IOException e) {
 					e.printStackTrace();
@@ -51,6 +57,10 @@ public class BulkFoodGrabber {
 			}
 		}
 		return menus;
+	}
+
+	public static void main(String[] args) {
+		new BulkFoodGrabber(new GregorianCalendar(2014, 13, 4)).getMenus(0, 0);
 	}
 
 }

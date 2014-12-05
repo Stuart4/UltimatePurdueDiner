@@ -1,5 +1,6 @@
 package com.spacejake.jake.ultimatepurduediner;
 
+import com.spacejake.jake.ultimatepurduediner.Menu;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -7,7 +8,7 @@ import org.jsoup.select.Elements;
 
 import java.io.IOException;
 import java.net.URL;
-
+import java.util.Calendar;
 
 /*This file is part of PurdueFoodGrabber.
 
@@ -23,15 +24,27 @@ import java.net.URL;
 
 		You should have received a copy of the GNU General Public License
 		along with PurdueFoodGrabber.  If not, see <http://www.gnu.org/licenses/>. */
+
 public class FoodGrabber {
-	Document doc;
+	private Document doc;
+	private Calendar cal = Calendar.getInstance();
 
 	public FoodGrabber(URL url) throws IOException {
 		doc = Jsoup.connect(url.toString()).get();
 	}
 
+	public FoodGrabber(URL url, Calendar cal) throws IOException {
+		this.cal = cal;
+		doc = Jsoup.connect(url.toString()).get();
+	}
+
 	public Menu getFood() {
-		Menu menu = new Menu();
+		Menu menu = null;
+		if (cal == null) {
+			menu = new Menu();
+		} else {
+			menu = new Menu(cal);
+		}
 
 		try {
 			String menuName = doc.select("a.selected").first().text();
@@ -42,6 +55,8 @@ public class FoodGrabber {
 			String menuNotes = doc.select("div#menu-notes").first().text();
 			menu.setMenuNote(menuNotes);
 		} catch (NullPointerException ignore) {}
+
+		menu.setDate(cal);
 
 		Elements meals = doc.select("div.location-meal-container");
 		for (Element mealElement : meals) {
@@ -54,8 +69,8 @@ public class FoodGrabber {
 				meal.setServing(true);
 				meal.setHours(hours.text());
 			}
-
 			Elements menuItems = mealElement.select("tr.menu-item");
+
 			for (Element menuItemElement : menuItems) {
 				MenuItem menuItem = new MenuItem();
 				if (menuItemElement.select("td.veg").isEmpty()) {

@@ -28,8 +28,8 @@ public class Menu {
 		super();
 	}
 
-	public Menu(Calendar date) {
-		this.date = date;
+	public Menu (Calendar cal) {
+		this.date = cal;
 	}
 
 	public void add(Meal meal) {
@@ -46,6 +46,14 @@ public class Menu {
 
 	public void setMenuNote(String menuNote) {
 		this.menuNote = menuNote;
+	}
+
+	public Calendar getDate() {
+		return date;
+	}
+
+	public void setDate(Calendar date) {
+		this.date = date;
 	}
 
 	public void setName(String name) {
