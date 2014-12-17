@@ -6,12 +6,18 @@
               android:orientation="horizontal">
 	<ImageView android:layout_width="20dp" android:layout_height="20dp"
 			android:layout_marginLeft="10dp"
-			android:layout_marginRight="15dp"
 			android:layout_gravity="center_vertical"
 			android:id="@+id/leafImage"
-			android:src="@drawable/leaf"/>
+			android:src="@drawable/leaves"/>
+	<ImageView android:layout_width="20dp" android:layout_height="20dp"
+	           android:layout_marginLeft="10dp"
+	           android:layout_marginRight="15dp"
+	           android:layout_gravity="center_vertical"
+	           android:id="@+id/favouriteStar"
+	           android:src="@drawable/like"/>
 	<TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
 	          android:textSize="25sp"
+	          android:layout_marginRight="15dp"
 	          android:paddingBottom="10dp"
 	          android:paddingTop="10dp"
 	          android:id="@+id/listTextView"
