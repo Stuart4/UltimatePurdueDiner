@@ -16,10 +16,6 @@ public class ListAdapter extends ArrayAdapter<MenuItem>{
 
 	public ListAdapter(Context context, MenuItem[] items) {
 		super(context, R.layout.row_layout_list, items);
-		if (getCount() == 0) {
-			new AlertDialog.Builder(context).setTitle("Not Serving").setMessage("This meal is not being served.")
-					.show();
-		}
 	}
 
 	@Override
