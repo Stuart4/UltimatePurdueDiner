@@ -115,6 +115,7 @@ class Meal {
 class MenuItem {
 	private String name;
 	private boolean isVegetarian;
+	private int liked = 0;
 
 	public void setVegetarian(boolean vegetarian) {
 		isVegetarian = vegetarian;
@@ -134,5 +135,9 @@ class MenuItem {
 
 	public String toString() {
 		return name;
+	}
+
+	public int getLiked() {
+		return liked;
 	}
 }

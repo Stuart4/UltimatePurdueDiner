@@ -27,11 +27,21 @@ public class ListAdapter extends ArrayAdapter<MenuItem>{
 		TextView textView = (TextView) view.findViewById(R.id.listTextView);
 		textView.setText(item);
 
-		if (!getItem(position).getIsVegetarian()) {
+		if (getItem(position).getIsVegetarian()) {
 			ImageView imageView = (ImageView) view.findViewById(R.id.leafImage);
-			imageView.setVisibility(ImageView.INVISIBLE);
+			imageView.setVisibility(ImageView.VISIBLE);
 		}
 
+		if (getItem(position).getLiked() == 1) {
+			ImageView imageView = (ImageView) view.findViewById(R.id.like);
+			imageView.setVisibility(ImageView.VISIBLE);
+		}
+
+		if (getItem(position).getLiked() == -1) {
+			ImageView imageView = (ImageView) view.findViewById(R.id.like);
+			imageView.setImageResource(R.drawable.dislike);
+			imageView.setVisibility(ImageView.VISIBLE);
+		}
 
 		return view;
 	}
