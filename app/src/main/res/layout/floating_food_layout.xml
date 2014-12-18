@@ -28,23 +28,23 @@
 			<RadioButton
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:id="@+id/toggleLike" android:layout_weight="1" android:layout_gravity="center_vertical"/>
+					android:id="@+id/radioLike" android:layout_weight="1" android:layout_gravity="center_vertical"/>
 			<ImageView
 					android:layout_width="20dp"
 					android:layout_height="20dp"
-					android:id="@+id/toggleDislike" android:layout_weight="1" android:src="@drawable/like"
+					android:id="@+id/imageLike" android:layout_weight="1" android:src="@drawable/like"
 					android:layout_gravity="center_vertical"/>
 			<RadioButton
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:id="@+id/toggleNoPref" android:layout_weight="1"/>
+					android:id="@+id/radioDislike" android:layout_weight="1"/>
 			<ImageView
 					android:layout_width="20dp"
 					android:layout_height="20dp"
-					android:id="@+id/imageView2" android:layout_weight="1" android:src="@drawable/dislike"
+					android:id="@+id/imageDislike" android:layout_weight="1" android:src="@drawable/dislike"
 					android:layout_gravity="center_vertical"/>
 			<RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content"
-			             android:id="@+id/radioButton" android:layout_weight="1" android:text="No Preference"/>
+			             android:id="@+id/radioNoPref" android:layout_weight="1" android:text="No Preference"/>
 		</RadioGroup>
 		<Button
 				android:layout_width="wrap_content"

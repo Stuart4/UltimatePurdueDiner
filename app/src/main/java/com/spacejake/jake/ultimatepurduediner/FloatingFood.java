@@ -11,9 +11,7 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.*;
 
 import java.util.zip.Inflater;
 
@@ -45,6 +43,28 @@ public class FloatingFood extends DialogFragment implements View.OnClickListener
 		final View floatingFood = getActivity().getLayoutInflater().inflate(R.layout.floating_food_layout, null);
 //		((ImageView) floatingFood.findViewById(R.id.imageView)).setImageResource(R.drawable.earhart);
 		((Button) floatingFood.findViewById(R.id.sharingButton)).setOnClickListener(this);
+		final RadioButton toggleLike = (RadioButton) floatingFood.findViewById(R.id.radioLike);
+		final RadioButton toggleDislike = (RadioButton) floatingFood.findViewById(R.id.radioDislike);
+		RadioButton toggleNoPref = (RadioButton) floatingFood.findViewById(R.id.radioNoPref);
+		toggleDislike.setOnClickListener(this);
+		toggleNoPref.setOnClickListener(this);
+		toggleLike.setOnClickListener(this);
+		ImageView imageLike = (ImageView) floatingFood.findViewById(R.id.imageLike);
+		ImageView imageDislike = (ImageView) floatingFood.findViewById(R.id.imageDislike);
+		imageDislike.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				toggleDislike.callOnClick();
+				toggleDislike.setChecked(true);
+			}
+		});
+		imageLike.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				toggleLike.callOnClick();
+				toggleLike.setChecked(true);
+			}
+		});
 		return new AlertDialog.Builder(getActivity())
 				.setIcon(null)
 				.setView(floatingFood)
@@ -60,7 +80,7 @@ public class FloatingFood extends DialogFragment implements View.OnClickListener
 	public void shareFood(View v) {
 		Intent toShare = new Intent(Intent.ACTION_SEND);
 		toShare.setType("text/plain");
-		String message = String.format("%s has %s for %s.", foodName, diningCourt, meal);
+		String message = String.format("%s has %s for %s.", diningCourt, foodName, meal);
 		toShare.putExtra(Intent.EXTRA_SUBJECT, String.format("%s at %s", foodName, diningCourt));
 		toShare.putExtra(Intent.EXTRA_TEXT, message);
 		if (toShare.resolveActivity(v.getContext().getPackageManager()) != null) {
@@ -73,6 +93,17 @@ public class FloatingFood extends DialogFragment implements View.OnClickListener
 
 	@Override
 	public void onClick(View view) {
-		shareFood(view);
+		switch(view.getId()) {
+			case(R.id.sharingButton):
+				shareFood(view);
+				break;
+			case(R.id.radioLike):
+				break;
+			case(R.id.radioDislike):
+				System.out.println("hello");
+				break;
+			case(R.id.radioNoPref):
+				break;
+		}
 	}
 }
