@@ -2,6 +2,7 @@ package com.spacejake.jake.ultimatepurduediner;
 
 import android.app.FragmentManager;
 import android.app.*;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.view.LayoutInflater;
@@ -67,7 +68,6 @@ public class MainActivity extends Activity
 		cal = Calendar.getInstance();
 		dateString = format.format(cal.getTime());
 
-		listView = (ListView) findViewById(R.id.listview);
 		spinner = (Spinner) findViewById(R.id.spinner);
 		spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 			@Override
@@ -80,6 +80,29 @@ public class MainActivity extends Activity
 
 			}
 		});
+
+		listView = (ListView) findViewById(R.id.listview);
+		listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+				String foodName = adapterView.getItemAtPosition(i).toString();
+				String meal = spinner.getSelectedItem().toString();
+
+				FragmentTransaction ft = getFragmentManager().beginTransaction();
+				Fragment previous = getFragmentManager().findFragmentByTag("floatingFood");
+
+				if (previous != null) {
+					ft.remove(previous);
+				}
+
+				ft.addToBackStack(null);
+
+				DialogFragment frag = FloatingFood.newInstance(foodName, mTitle.toString(), meal);
+				frag.show(ft, "floatingFood");
+			}
+		});
+
+
 	}
 
 	@Override
@@ -233,6 +256,5 @@ public class MainActivity extends Activity
 		listView.setAdapter(listAdapter);
 		listAdapter.notifyDataSetChanged();
 	}
-
 
 }
