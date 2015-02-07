@@ -34,17 +34,27 @@ public class MealGetter extends AsyncTask<URL, Void, Menu> {
 		try {
             int selection = 0;
             Calendar cal = Calendar.getInstance();
-            int curr = cal.get(Calendar.HOUR_OF_DAY) * 12 + cal.get(Calendar.MINUTE);
-            for (int i = menu.getMeals().length - 1; i > -1; i++) {
+            int curr = cal.get(Calendar.HOUR) * 12 + cal.get(Calendar.MINUTE) + cal.get(Calendar.AM_PM) * 720;
+            int lastFoundSelection = 0;
+            for (int i = 0; i < menu.getMeals().length; i++) {
+                if (!menu.getMeals()[i].getIsServing()) {
+                    selection = selection + 1 % 4;
+                    continue;
+                }
+                lastFoundSelection = i;
                 int[] timeRange = strToRange(menu.getMeals()[i].getHours());
-                if (curr >= timeRange[0]) {
+                if (curr < timeRange[1]) {
                     selection = i;
                     break;
                 }
             }
-            ((MainActivity) context).updateMenu(menu, selection);
+            if (menu.getMeals()[selection].getIsServing())
+                ((MainActivity) context).updateMenu(menu, selection);
+            else
+                ((MainActivity) context).updateMenu(menu, lastFoundSelection);
         } catch (NumberFormatException|ArrayIndexOutOfBoundsException e) {
-            ((MainActivity) context).updateMenu(menu, 2);
+            ((MainActivity) context).updateMenu(menu, 0);
+            e.printStackTrace();
 		} catch (Exception e) {
 			new AlertDialog.Builder(context).setTitle("Error")
 					.setMessage("Purdue's housing and food services cannot be contacted.")
@@ -77,14 +87,14 @@ public class MealGetter extends AsyncTask<URL, Void, Menu> {
         input = input.replace(":", "");
         String[] parts = input.split("-");
         for (int i = 0; i < parts.length; i++) {
-            if (parts[i].length() == 9) {
-                output[i] = Integer.parseInt(parts[i].substring(0, 2)) * 12 +
-                        Integer.parseInt(parts[i].substring(3, 5)) +
-                        parts[i].charAt(5) == 'p'? 720 : 0;
+            if (parts[i].length() == 8) {
+                output[i] += Integer.parseInt(parts[i].substring(0, 2)) * 12;
+                output[i] += Integer.parseInt(parts[i].substring(2, 4));
+                output[i] += parts[i].charAt(4) == 'p'? 720 : 0;
             } else {
-                output[i] = Integer.parseInt(parts[i].substring(0, 1)) * 12 +
-                        Integer.parseInt(parts[i].substring(2, 4)) +
-                        parts[i].charAt(4) == 'p'? 720 : 0;
+                output[i] += Integer.parseInt(parts[i].substring(0, 1)) * 12;
+                output[i] += Integer.parseInt(parts[i].substring(1, 3));
+                output[i] += parts[i].charAt(3) == 'p'? 720 : 0;
             }
         }
         return output;
