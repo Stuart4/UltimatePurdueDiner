@@ -239,11 +239,12 @@ public class MainActivity extends Activity
 		}
 	}
 
-	public void updateMenu(com.spacejake.jake.ultimatepurduediner.Menu foodMenu) {
+	public void updateMenu(com.spacejake.jake.ultimatepurduediner.Menu foodMenu, int selection) {
 		this.foodMenu = foodMenu;
 		SpinnerAdapter spinnerAdapter = new SpinnerAdapter(MainActivity.this, foodMenu.getMeals());
 		spinner.setAdapter(spinnerAdapter);
 		spinnerAdapter.notifyDataSetChanged();
+        spinner.setSelection(selection);
 		if (foodMenu.getMenuNote() != null) {
 			new AlertDialog.Builder(this).setTitle("A Special Note Was Found!").setMessage(foodMenu.getMenuNote())
 					.show();
