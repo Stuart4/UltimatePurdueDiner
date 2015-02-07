@@ -109,13 +109,13 @@ class Meal {
 	}
 
     public void dislikeItem(MenuItem item) {
-        menuItems.add(menuItems.size(), item);
         menuItems.remove(item);
+        menuItems.add(menuItems.size(), item);
     }
 
     public void likeItem(MenuItem item) {
-        menuItems.add(0, item);
         menuItems.remove(item);
+        menuItems.add(0, item);
     }
 
     public void setNumDislikes(int numDislikes) {
