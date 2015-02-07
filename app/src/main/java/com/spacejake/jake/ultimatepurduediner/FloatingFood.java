@@ -13,6 +13,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
 
+import java.text.Format;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.zip.Inflater;
 
 /**
@@ -22,14 +25,17 @@ public class FloatingFood extends DialogFragment implements View.OnClickListener
 	private String foodName;
 	private String meal;
 	private String diningCourt;
+	private String dateString;
 
-	static FloatingFood newInstance(String foodName, String diningCourt, String meal) {
+	static FloatingFood newInstance(String foodName, String diningCourt, String meal, Calendar cal) {
 		FloatingFood ff = new FloatingFood();
 
 		Bundle args = new Bundle();
 		args.putString("name", foodName);
 		args.putString("diningCourt", diningCourt);
 		args.putString("meal", meal);
+		Format dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+		args.putString("dateString", dateFormat.format(cal.getTime()));
 		ff.setArguments(args);
 
 		return ff;
@@ -40,6 +46,7 @@ public class FloatingFood extends DialogFragment implements View.OnClickListener
 		foodName = getArguments().getString("name");
 		meal = getArguments().getString("meal");
 		diningCourt = getArguments().getString("diningCourt");
+		dateString = getArguments().getString("dateString");
 		final View floatingFood = getActivity().getLayoutInflater().inflate(R.layout.floating_food_layout, null);
 //		((ImageView) floatingFood.findViewById(R.id.imageView)).setImageResource(R.drawable.earhart);
 		((Button) floatingFood.findViewById(R.id.sharingButton)).setOnClickListener(this);
@@ -80,7 +87,7 @@ public class FloatingFood extends DialogFragment implements View.OnClickListener
 	public void shareFood(View v) {
 		Intent toShare = new Intent(Intent.ACTION_SEND);
 		toShare.setType("text/plain");
-		String message = String.format("%s has %s for %s.", diningCourt, foodName, meal);
+		String message = String.format("%s has %s for %s on %s.", diningCourt, foodName, meal, dateString);
 		toShare.putExtra(Intent.EXTRA_SUBJECT, String.format("%s at %s", foodName, diningCourt));
 		toShare.putExtra(Intent.EXTRA_TEXT, message);
 		if (toShare.resolveActivity(v.getContext().getPackageManager()) != null) {

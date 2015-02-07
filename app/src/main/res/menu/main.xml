@@ -8,4 +8,9 @@
           android:title="@string/action_settings"
           android:orderInCategory="100"
           android:showAsAction="never"/>
+	<item android:id="@+id/search"
+	      android:title="Search"
+	      android:orderInCategory="0"
+	      android:icon="@drawable/ic_search_holo_light"
+	      android:showAsAction="collapseActionView|ifRoom" />
 </menu>

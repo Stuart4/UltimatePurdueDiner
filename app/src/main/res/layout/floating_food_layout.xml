@@ -4,12 +4,10 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
-	<ImageView
-			android:layout_width="wrap_content"
+	<ListView
+			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:scaleType="fitXY"
-			android:adjustViewBounds="true"
-			android:id="@+id/imageFood" android:src="@drawable/windsor" android:layout_gravity="center_horizontal"/>
+			android:id="@+id/listView" android:layout_gravity="center_horizontal"/>
 	<ProgressBar
 			style="?android:attr/progressBarStyleLarge"
 			android:layout_width="wrap_content"

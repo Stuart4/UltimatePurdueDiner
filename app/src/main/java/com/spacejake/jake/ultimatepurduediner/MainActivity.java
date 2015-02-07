@@ -97,7 +97,7 @@ public class MainActivity extends Activity
 
 				ft.addToBackStack(null);
 
-				DialogFragment frag = FloatingFood.newInstance(foodName, mTitle.toString(), meal);
+				DialogFragment frag = FloatingFood.newInstance(foodName, mTitle.toString(), meal, cal);
 				frag.show(ft, "floatingFood");
 			}
 		});
