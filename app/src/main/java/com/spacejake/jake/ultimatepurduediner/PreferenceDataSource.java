@@ -3,6 +3,7 @@ package com.spacejake.jake.ultimatepurduediner;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.CursorIndexOutOfBoundsException;
 import android.database.sqlite.SQLiteDatabase;
 
 import java.security.MessageDigest;
@@ -39,11 +40,19 @@ public class PreferenceDataSource {
         db.execSQL(String.format("DELETE FROM preferences WHERE id = '%s'", name));
     }
 
-    public boolean getPref (String name) throws Exception{
+    public short getPref (String name) throws Exception{
 //        Cursor c = db.query("preferences", new String[]{"pref"}, "id = " + name, null, null, null, null);
         Cursor c = db.rawQuery(String.format("SELECT pref FROM preferences WHERE id = '%s'", name), null);
         c.moveToFirst();
 
-        return c.getInt(0) == 1;
+        try {
+            if (c.getInt(0) == 1) {
+                return 1;
+            } else {
+                return -1;
+            }
+        } catch (CursorIndexOutOfBoundsException e) {
+            return 0;
+        }
     }
 }

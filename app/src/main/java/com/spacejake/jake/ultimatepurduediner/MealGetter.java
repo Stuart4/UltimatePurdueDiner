@@ -1,12 +1,10 @@
 package com.spacejake.jake.ultimatepurduediner;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
-import java.io.IOException;
 import java.net.URL;
 import java.util.Calendar;
 
@@ -38,7 +36,6 @@ public class MealGetter extends AsyncTask<URL, Void, Menu> {
             int lastFoundSelection = 0;
             for (int i = 0; i < menu.getMeals().length; i++) {
                 if (!menu.getMeals()[i].getIsServing()) {
-                    selection = selection + 1 % 4;
                     continue;
                 }
                 lastFoundSelection = i;
@@ -56,6 +53,7 @@ public class MealGetter extends AsyncTask<URL, Void, Menu> {
             ((MainActivity) context).updateMenu(menu, 0);
             e.printStackTrace();
 		} catch (Exception e) {
+            e.printStackTrace();
 			new AlertDialog.Builder(context).setTitle("Error")
 					.setMessage("Purdue's housing and food services cannot be contacted.")
 					.setPositiveButton("Retry", new DialogInterface.OnClickListener() {
@@ -72,8 +70,41 @@ public class MealGetter extends AsyncTask<URL, Void, Menu> {
 	protected Menu doInBackground(URL... urls) {
 		try {
 			FoodGrabber grabber = new FoodGrabber(urls[0]);
-			return grabber.getFood();
-		} catch (IOException e) {
+            Menu menu = grabber.getFood();
+            PreferenceDataSource pds = new PreferenceDataSource(context);
+            pds.open();
+            pds.like("Fish Square");
+            for (Meal meal : menu.getMeals()) {
+                int likes = 0, dislikes = 0;
+                MenuItem[] items = meal.getMenuItems();
+                for (int i = 0; i < items.length; i++) {
+                    MenuItem item = meal.getMenuItems()[i];
+                    int pref = pds.getPref(item.toString());
+                    if (pref == 1) {
+                        likes++;
+                        item = meal.getMenuItems()[i];
+                        meal.getMenuItems().
+                        int j = i;
+                        for (; j > likes; j--) {
+                            items[j] = items[j - 1];
+                        }
+                        items[j] = item;
+                    } else  if (pref == -1) {
+                        dislikes++;
+                        item = meal.getMenuItems()[i];
+                        int j = i;
+                        for (; j < items.length - dislikes; j++) {
+                            items[j] = items[j + 1];
+                        }
+                        items[j] = item;
+                    }
+                }
+                meal.setNumLikes(likes);
+                meal.setNumDislikes(dislikes);
+            }
+            pds.close();
+            return menu;
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return null;

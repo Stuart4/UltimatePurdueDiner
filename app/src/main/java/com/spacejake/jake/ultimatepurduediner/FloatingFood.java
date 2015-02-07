@@ -107,7 +107,6 @@ public class FloatingFood extends DialogFragment implements View.OnClickListener
 			case(R.id.radioLike):
 				break;
 			case(R.id.radioDislike):
-				System.out.println("hello");
 				break;
 			case(R.id.radioNoPref):
 				break;

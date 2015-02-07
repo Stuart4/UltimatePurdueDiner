@@ -69,6 +69,7 @@ class Meal {
 	private String name;
 	private boolean isServing;
 	private String hours;
+    private int numLikes, numDislikes;
 	private ArrayList<MenuItem> menuItems = new ArrayList<MenuItem>();
 
 	public void add(MenuItem menuItem) {
@@ -106,6 +107,31 @@ class Meal {
 	public MenuItem[] getMenuItems() {
 		return menuItems.toArray(new MenuItem[menuItems.size()]);
 	}
+
+    public void dislikeItem(MenuItem item) {
+        menuItems.add(menuItems.size(), item);
+        menuItems.remove(item);
+    }
+
+    public void likeItem(MenuItem item) {
+        menuItems.add(0, item);
+        menuItems.remove(item);
+    }
+
+    public void setNumDislikes(int numDislikes) {
+        this.numDislikes = numDislikes;
+    }
+
+    public int getNumDislikes() {
+        return numDislikes;
+    }
+    public void setNumLikes(int numLikes) {
+        this.numLikes = numLikes;
+    }
+
+    public int getNumLikes() {
+        return numLikes;
+    }
 
 	public String toString() {
 		return name;
