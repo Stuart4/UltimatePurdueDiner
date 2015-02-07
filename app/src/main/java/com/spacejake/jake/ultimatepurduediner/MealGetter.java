@@ -47,7 +47,7 @@ public class MealGetter extends AsyncTask<URL, Void, Menu> {
             ((MainActivity) context).updateMenu(menu, 2);
 		} catch (Exception e) {
 			new AlertDialog.Builder(context).setTitle("Error")
-					.setMessage("Purdue's housing and food service cannot be contacted.")
+					.setMessage("Purdue's housing and food services cannot be contacted.")
 					.setPositiveButton("Retry", new DialogInterface.OnClickListener() {
 						@Override
 						public void onClick(DialogInterface dialogInterface, int i) {
