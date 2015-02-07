@@ -111,26 +111,13 @@ class Meal {
     public void dislikeItem(MenuItem item) {
         menuItems.remove(item);
         menuItems.add(menuItems.size(), item);
+        item.setLiked(-1);
     }
 
     public void likeItem(MenuItem item) {
         menuItems.remove(item);
         menuItems.add(0, item);
-    }
-
-    public void setNumDislikes(int numDislikes) {
-        this.numDislikes = numDislikes;
-    }
-
-    public int getNumDislikes() {
-        return numDislikes;
-    }
-    public void setNumLikes(int numLikes) {
-        this.numLikes = numLikes;
-    }
-
-    public int getNumLikes() {
-        return numLikes;
+        item.setLiked(1);
     }
 
 	public String toString() {
@@ -166,4 +153,8 @@ class MenuItem {
 	public int getLiked() {
 		return liked;
 	}
+
+    public void setLiked(int pref) {
+        liked = pref;
+    }
 }

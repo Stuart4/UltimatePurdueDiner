@@ -73,23 +73,16 @@ public class MealGetter extends AsyncTask<URL, Void, Menu> {
             Menu menu = grabber.getFood();
             PreferenceDataSource pds = new PreferenceDataSource(context);
             pds.open();
-            pds.like("Fish Square");
-            pds.dislike("Manicotti");
             for (Meal meal : menu.getMeals()) {
-                int likes = 0, dislikes = 0;
                 MenuItem[] items = meal.getMenuItems();
                 for (MenuItem item : meal.getMenuItems()) {
                     int pref = pds.getPref(item.toString());
                     if (pref == 1) {
-                        likes++;
                         meal.likeItem(item);
                     } else if (pref == -1) {
-                        dislikes++;
                         meal.dislikeItem(item);
                     }
                 }
-                meal.setNumLikes(likes);
-                meal.setNumDislikes(dislikes);
             }
             pds.close();
             return menu;

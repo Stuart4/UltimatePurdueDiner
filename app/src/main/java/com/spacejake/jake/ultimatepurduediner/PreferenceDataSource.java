@@ -41,7 +41,6 @@ public class PreferenceDataSource {
     }
 
     public short getPref (String name) throws Exception{
-//        Cursor c = db.query("preferences", new String[]{"pref"}, "id = " + name, null, null, null, null);
         Cursor c = db.rawQuery(String.format("SELECT pref FROM preferences WHERE id = '%s'", name), null);
         c.moveToFirst();
 
