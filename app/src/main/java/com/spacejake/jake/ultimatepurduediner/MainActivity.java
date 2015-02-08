@@ -1,8 +1,12 @@
 package com.spacejake.jake.ultimatepurduediner;
 
+import android.app.ActionBar;
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.DialogFragment;
+import android.app.Fragment;
 import android.app.FragmentManager;
-import android.app.*;
-import android.content.Intent;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.view.LayoutInflater;
@@ -10,16 +14,30 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.*;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.Spinner;
 
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 
-import com.doomonafireball.betterpickers.datepicker.DatePickerBuilder;
 
+/*This file is part of UltimatePurdueDiner.
+
+		UltimatePurdueDiner is free software: you can redistribute it and/or modify
+		it under the terms of the GNU General Public License as published by
+		the Free Software Foundation, either version 3 of the License, or
+		(at your option) any later version.
+
+		UltimatePurdueDiner is distributed in the hope that it will be useful,
+		but WITHOUT ANY WARRANTY; without even the implied warranty of
+		MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+		GNU General Public License for more details.
+
+		You should have received a copy of the GNU General Public License
+		along with UltimatePurdueDiner.  If not, see <http://www.gnu.org/licenses/>. */
 
 public class MainActivity extends Activity
 		implements NavigationDrawerFragment.NavigationDrawerCallbacks {
