@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 
@@ -60,8 +59,7 @@ public class FloatingFood extends DialogFragment implements View.OnClickListener
 		diningCourt = getArguments().getString("diningCourt");
 		dateString = getArguments().getString("dateString");
 		final View floatingFood = getActivity().getLayoutInflater().inflate(R.layout.floating_food_layout, null);
-//		((ImageView) floatingFood.findViewById(R.id.imageView)).setImageResource(R.drawable.earhart);
-		((Button) floatingFood.findViewById(R.id.sharingButton)).setOnClickListener(this);
+		floatingFood.findViewById(R.id.sharingButton).setOnClickListener(this);
 		final RadioButton toggleLike = (RadioButton) floatingFood.findViewById(R.id.radioLike);
 		final RadioButton toggleDislike = (RadioButton) floatingFood.findViewById(R.id.radioDislike);
 		final RadioButton toggleNoPref = (RadioButton) floatingFood.findViewById(R.id.radioNoPref);

@@ -23,8 +23,6 @@ import java.util.GregorianCalendar;
 public class BulkFoodGrabber {
 	private final SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
 	private Calendar cal;
-	private String dateString;
-	private FoodGrabber grabber;
 	private final String[] courts = new String[]{"ERHT", "FORD", "HILL", "WILY", "WIND"};
 
 	public BulkFoodGrabber(Calendar cal) {
@@ -40,9 +38,10 @@ public class BulkFoodGrabber {
 		cal.add(Calendar.DATE, -daysPast - 1);
 		for (int i = 0; i < daysFuture + daysPast + 1; i++) {
 			cal.add(Calendar.DATE, 1);
-			dateString = format.format(cal.getTime());
+			String dateString = format.format(cal.getTime());
 			for (int court = 0; court < courts.length; court++) {
 				try {
+					FoodGrabber grabber;
 					if (cal != null) {
 						grabber = new FoodGrabber(new URL(String.format("http://www.housing.purdue.edu/Menus/%s/%s",
 								courts[court], dateString)), cal);

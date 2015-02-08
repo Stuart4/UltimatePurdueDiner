@@ -39,19 +39,19 @@ public class PreferenceDataSource {
     }
 
     public void like (String name) throws Exception{
-        db.execSQL(String.format("INSERT OR REPLACE INTO preferences(id, pref) VALUES('%s', 1)", name));
+        db.execSQL(String.format("INSERT OR REPLACE INTO preferences(id, pref) VALUES('%s', 1)", name.replaceAll("'", "''")));
     }
 
     public void dislike (String name) throws Exception{
-        db.execSQL(String.format("INSERT OR REPLACE INTO preferences(id, pref) VALUES('%s', 0)", name));
+        db.execSQL(String.format("INSERT OR REPLACE INTO preferences(id, pref) VALUES('%s', 0)", name.replaceAll("'", "''")));
     }
 
     public void noPref (String name) throws Exception{
-        db.execSQL(String.format("DELETE FROM preferences WHERE id = '%s'", name));
+        db.execSQL(String.format("DELETE FROM preferences WHERE id = '%s'", name.replaceAll("'", "''")));
     }
 
     public short getPref (String name) throws Exception{
-        Cursor c = db.rawQuery(String.format("SELECT pref FROM preferences WHERE id = '%s'", name), null);
+        Cursor c = db.rawQuery(String.format("SELECT pref FROM preferences WHERE id = '%s'", name.replaceAll("'", "''")), null);
         c.moveToFirst();
 
         try {
